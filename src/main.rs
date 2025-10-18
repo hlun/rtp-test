@@ -909,9 +909,9 @@ fn main() -> Result<(), Error> {
     let mut manager = PipelineManager::new(network_interface.clone());
 
     // Create pipelines with selected network interface
-    let p1_desc = format!("audiotestsrc samplesperbuffer=48 is-live=true ! audio/x-raw,rate=48000,channels=2 ! audioconvert ! rtpL24pay pt=98 timestamp-offset=0 max-ptime=1000000 min-ptime=1000000 ! udpsink processing-deadline=1000000 multicast-iface=\"{}\" ttl-mc=64 bind-port=5004 host=\"239.155.46.49\"", network_interface);
-    let p2_desc = format!("filesrc location=./from_pipeline1.sdp ! sdpdemux latency=6 timeout=0 ! decodebin ! audioconvert ! rtpL24pay pt=98 timestamp-offset=0 max-ptime=1000000 min-ptime=1000000 ! udpsink processing-deadline=1000000 multicast-iface=\"{}\" ttl-mc=64 bind-port=5004 host=\"239.155.46.50\"", network_interface);
-    let p3_desc = format!("filesrc location=./from_pipeline2.sdp ! sdpdemux latency=6 timeout=0 ! decodebin ! audioconvert ! rtpL24pay pt=98 timestamp-offset=0 max-ptime=1000000 min-ptime=1000000 ! udpsink processing-deadline=1000000 multicast-iface=\"{}\" ttl-mc=64 bind-port=5004 host=\"239.155.46.51\"", network_interface);
+    let p1_desc = format!("audiotestsrc samplesperbuffer=48 is-live=true ! audio/x-raw,rate=48000,channels=2 ! audioconvert ! rtpL24pay pt=98 timestamp-offset=0 max-ptime=1000000 min-ptime=1000000 ! udpsink processing-deadline=1000000 multicast-iface=\"{}\" ttl-mc=64 bind-port=5004 host=\"239.0.0.10\"", network_interface);
+    let p2_desc = format!("filesrc location=./from_pipeline1.sdp ! sdpdemux latency=6 timeout=0 ! decodebin ! audioconvert ! rtpL24pay pt=98 timestamp-offset=0 max-ptime=1000000 min-ptime=1000000 ! udpsink processing-deadline=1000000 multicast-iface=\"{}\" ttl-mc=64 bind-port=5004 host=\"239.0.0.11\"", network_interface);
+    let p3_desc = format!("filesrc location=./from_pipeline2.sdp ! sdpdemux latency=6 timeout=0 ! decodebin ! audioconvert ! rtpL24pay pt=98 timestamp-offset=0 max-ptime=1000000 min-ptime=1000000 ! udpsink processing-deadline=1000000 multicast-iface=\"{}\" ttl-mc=64 bind-port=5004 host=\"239.0.0.12\"", network_interface);
     
     manager.create_pipeline("p1", &p1_desc)?;
     manager.create_pipeline("p2", &p2_desc)?;
