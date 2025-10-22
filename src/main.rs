@@ -896,8 +896,10 @@ fn main() -> Result<(), Error> {
     // Initialize tracing subscriber with environment-based filtering
     // Set log level with RUST_LOG env var (e.g., RUST_LOG=debug cargo run)
     tracing_subscriber::fmt()
-        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env()
-            .add_directive("gstreamer_pipeline_manager=info".parse().unwrap()))
+        .with_env_filter(
+            tracing_subscriber::EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| "gstreamer_pipeline_manager=info".into())
+        )
         .init();
     
     gstreamer::init()?;
